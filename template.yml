@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Sample SAM Template for kit-query-function
+
+Globals:
+  Function:
+    Timeout: 3
+
+Parameters:
+  FunctionName:
+    Type: String
+  Environment:
+    Type: String
+  Application:
+    Type: String
+
+Resources:
+  KitQueryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      CodeUri: dist/
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Environment:
+        Variables:
+          # COGNITO_USER_POOL_ID: !Ref CognitoUserPoolId
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - logs:*
+                - cognito-idp:AdminGetUser
+              Resource: "*"
+      Tags:
+        environment: !Ref Environment
+        application: !Ref Application
+
+  KitQueryFunctionPermissions:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt KitQueryFunction.Arn
+      Principal: appsync.amazonaws.com
+
+Outputs:
+  KitQueryFunction:
+    Description: "Kit Query Lambda Function ARN"
+    Value: !GetAtt KitQueryFunction.Arn
