@@ -3,11 +3,10 @@ version: 0.2
 phases:
   install:
     commands:
-      - npm install
+      - npm ci
       - npm run build
   build:
     commands:
-      # LAMBDA_ARTIFACT_STORE_BUCKET should be an environment variable in AWS::CodeBuild::Project
       - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yml --output-template-file output-template.yml
 
 artifacts:

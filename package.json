@@ -1,19 +1,47 @@
 {
-  "name": "hello_world",
+  "name": "kit-query-function",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
-  "main": "app.js",
-  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
-  "author": "SAM CLI",
+  "description": "Kit Query Function",
+  "main": "./src/app.ts",
+  "repository": "https://github.com/gimmickless/kit-query-function",
+  "author": "Vahdet Keskin <vahdetkeskin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1"
+    "@aws-sdk/client-rds": "^3.22.0",
+    "aws-sdk": "^2.952.0",
+    "axios": "^0.21.1",
+    "esm": "^3.2.25"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "husky install",
+    "lint": "eslint --ext .js,.ts src --color",
+    "format": "prettier --write src/**/*.{ts,json}"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.80",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "prettier": "^2.3.2",
     "typescript": "^4.3.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && npm run lint"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|ts)": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.+(json|md)": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
