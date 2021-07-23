@@ -125,5 +125,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Husky
+.husky/
+
+# Output
+dist/
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows
