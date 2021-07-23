@@ -9,8 +9,6 @@ phases:
   build:
     commands:
       - npm run build
-  build:
-    commands:
       - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yml --output-template-file output-template.yml
 
 artifacts:
