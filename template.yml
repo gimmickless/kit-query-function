@@ -31,7 +31,6 @@ Resources:
             - Effect: Allow
               Action:
                 - logs:*
-                - cognito-idp:AdminGetUser
               Resource: "*"
       Tags:
         environment: !Ref Environment
